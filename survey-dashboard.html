@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>گزارش نظرسنجی کمک‌های ماهانه هیئت</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1d2a26;--mut:#65726d;--line:#e4e2da;--p:#1f7a5c;--p2:#e0a030;--p3:#c4553d;--p4:#4a7fb5;--p5:#9aa5a0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14201c;--card:#1c2b26;--ink:#eaf1ee;--mut:#9db0a8;--line:#2e413a;--p:#3fb58a;--p2:#e8b04a;--p3:#e07a62;--p4:#6ea3d8;--p5:#6d7d76}}
+:root[data-theme="dark"]{--bg:#14201c;--card:#1c2b26;--ink:#eaf1ee;--mut:#9db0a8;--line:#2e413a;--p:#3fb58a;--p2:#e8b04a;--p3:#e07a62;--p4:#6ea3d8;--p5:#6d7d76}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;line-height:1.9}
+.wrap{max-width:1040px;margin:0 auto;padding:20px 16px 48px}
+header{padding:28px 0 8px}
+h1{font-size:clamp(1.5rem,4vw,2.1rem);margin:0 0 6px;font-weight:800}
+.sub{color:var(--mut);margin:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi b{display:block;font-size:1.9rem;font-weight:800;color:var(--p);line-height:1.4}
+.kpi span{color:var(--mut);font-size:.9rem}
+h2{font-size:1.2rem;margin:34px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h3{font-size:1rem;margin:0 0 2px;font-weight:600}
+.tag{font-size:.78rem;color:var(--mut);margin-bottom:8px;display:block}
+.ch{position:relative;height:240px}
+.note{margin:10px 0 0;font-size:.9rem;color:var(--mut);border-top:1px dashed var(--line);padding-top:8px}
+.note b{color:var(--ink)}
+.ins{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.ins .card{border-right:4px solid var(--p)}
+.ins .card.w{border-right-color:var(--p3)}
+.ins p{margin:4px 0 0;font-size:.93rem}
+.rec{counter-reset:r;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.rec li{counter-increment:r;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px 12px 16px;position:relative;padding-right:52px}
+.rec li::before{content:counter(r,persian);position:absolute;right:14px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--p);color:#fff;text-align:center;line-height:28px;font-weight:600;font-size:.9rem}
+.cm{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px;font-size:.95rem}
+footer{color:var(--mut);font-size:.8rem;margin-top:30px;text-align:center}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:center}
+th:first-child,td:first-child{text-align:right}
+td.h{background:color-mix(in srgb,var(--p) 22%,transparent);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>📊 گزارش نظرسنجی طرح کمک‌های ماهانه هیئت</h1>
+<p class="sub">تحلیل ۱۶ پاسخ ثبت‌شده، از ۷ تا ۲۴ آبان ۱۴۰۵ — برای بهبود روند جمع‌آوری کمک‌های ماهانه</p>
+</header>
+
+<div class="kpis">
+<div class="kpi"><b id="k1"></b><span>تعداد پاسخ‌دهندگان</span></div>
+<div class="kpi"><b id="k2"></b><span>تمایل «زیاد» یا «متوسط» به مشارکت</span></div>
+<div class="kpi"><b id="k3"></b><span>مانع اصلی: شرایط مالی شخصی</span></div>
+<div class="kpi"><b id="k4"></b><span>ترجیح تعیین مبلغ توسط خود فرد</span></div>
+</div>
+
+<h2>نتایج به تفکیک سؤال</h2>
+<div class="grid" id="charts"></div>
+
+<h2>پیوند پاسخ‌ها (تحلیل ترکیبی)</h2>
+<div class="card">
+<h3>تمایل به مشارکت × اثر آگاهی از نحوه هزینه‌کرد</h3>
+<span class="tag">تعداد نفرات در هر ترکیب</span>
+<div class="tbl"><table>
+<tr><th>تمایل به مشارکت</th><th>اثر زیاد</th><th>اثر کم</th><th>تأثیری ندارد</th></tr>
+<tr><td>زیاد (۶ نفر)</td><td class="h">۴</td><td>۰</td><td>۲</td></tr>
+<tr><td>متوسط (۲ نفر)</td><td class="h">۲</td><td>۰</td><td>۰</td></tr>
+<tr><td>کم (۵ نفر)</td><td>۱</td><td class="h">۳</td><td>۱</td></tr>
+<tr><td>مشارکتی نداشتم (۳ نفر)</td><td>۱</td><td>۱</td><td>۱</td></tr>
+</table></div>
+<p class="note">همه‌ی کسانی که تمایل «متوسط» دارند و ۴ از ۶ نفر با تمایل «زیاد»، شفافیت هزینه‌کرد را مؤثر می‌دانند. شفافیت بیشترین اثر را روی همین گروه دارد.</p>
+</div>
+
+<h2>یافته‌های کلیدی</h2>
+<div class="ins">
+<div class="card"><h3>✅ نقطه قوت</h3><p>نیمی از پاسخ‌دهندگان تمایل زیاد یا متوسط دارند. تقریباً هیچ‌کس «روش» را مشکل اصلی نمی‌داند (فقط ۲ نفر)؛ مشکل بیشتر توان مالی است تا طراحی طرح.</p></div>
+<div class="card w"><h3>⚠️ مانع اصلی</h3><p>۹ نفر از ۱۶ نفر شرایط مالی را دلیل عدم مشارکت می‌دانند، حتی ۵ نفر از ۶ نفرِ «با تمایل زیاد». این یعنی مبلغ ثابت اجباری برایشان مناسب نیست.</p></div>
+<div class="card"><h3>💡 انعطاف در مبلغ</h3><p>۱۳ نفر از ۱۵ پاسخ معتبر مبلغ را خودِ فرد تعیین کند. و ۸ نفر ترجیح می‌دهند فقط «هر وقت شرایط مالی دارم» کمک کنند.</p></div>
+<div class="card"><h3>🔔 یادآوری و زمان‌بندی</h3><p>یادآوری ماهانه پرانتخاب‌ترین عامل است (۷ نفر). نیمی «روز اول ماه» را می‌خواهند و ۱۳ نفر از ۱۶ نفر پیام را در روز اول یا چند روز پس از شروع ماه ترجیح می‌دهند.</p></div>
+</div>
+
+<h2>پیشنهادهای اجرایی</h2>
+<ol class="rec">
+<li><b>مبلغ ثابت اجباری نگذارید.</b> یک «حداقل پیشنهادی» اعلام کنید و تعیین مبلغ را به خود افراد بسپارید.</li>
+<li><b>پیام یادآوری را در روز اول ماه بفرستید</b> و در همان پیام، مبلغ پیشنهادی و راه ساده پرداخت را بنویسید.</li>
+<li><b>گزارش شفاف و کوتاه از هزینه‌کرد</b> هر ماه منتشر کنید؛ این برای ۸ نفر روی تصمیم مؤثر است.</li>
+<li><b>پرداخت را ساده‌تر کنید</b> (مثلاً شماره کارت/لینک ثابت و تأیید سریع).</li>
+<li><b>مشارکت‌های «موردی» را هم به رسمیت بشناسید</b> برای کسانی که فقط وقتی شرایط دارند کمک می‌کنند.</li>
+<li><b>نیازهای مشخص ماهانه را اعلام کنید</b> (مثلاً تجهیزات صوت و تصویر با مبلغ دقیق) و در چند کانال اطلاع‌رسانی کنید، طبق پیشنهاد یکی از اعضا.</li>
+</ol>
+
+<h2>نظرات تشریحی (۵ پاسخ معتبر)</h2>
+<div id="cm"></div>
+<footer>داده‌ها از فایل نتایج نظرسنجی. تعداد نمونه کم است (۱۶ نفر)، پس درصدها را برآوردی ببینید.</footer>
+</div>
+
+<script>
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const cs=getComputedStyle(document.documentElement);
+const col=v=>cs.getPropertyValue(v).trim();
+const P=()=>[col('--p'),col('--p2'),col('--p3'),col('--p4'),col('--p5')];
+const Q=[
+{t:'۱. تمایل کلی به مشارکت در کمک‌های ماهانه',k:'تک‌انتخابی',type:'doughnut',l:['زیاد','کم','مشارکتی نداشتم','متوسط'],d:[6,5,3,2],n:'تمایل زیاد یا متوسط: <b>۸ نفر (۵۰٪)</b>؛ کم یا بدون مشارکت: ۸ نفر.'},
+{t:'۲. مهم‌ترین دلیل نتوانستن مشارکت ماهانه',k:'چندانتخابی',type:'bar',l:['شرایط مالی و هزینه‌های شخصی','سایر موارد','روش فعلی مناسب نیست','زمان‌بندی نامناسب پیام','فراموش کردن واریز'],d:[9,3,2,1,1],n:'<b>۵۶٪</b> شرایط مالی را دلیل اصلی می‌دانند.'},
+{t:'۳. روش راحت‌تر برای مشارکت ماهانه',k:'تک‌انتخابی',type:'bar',l:['کمک در زمان‌هایی که شرایط مالی دارم','مبلغ دلخواه هر ماه','مبلغ ثابت هر ماه'],d:[8,5,3],n:'روش‌های انعطاف‌پذیر (۱۳ نفر) بسیار محبوب‌تر از مبلغ ثابت (۳ نفر) هستند.'},
+{t:'۴. روش تعیین حداقل مبلغ ثابت ماهانه',k:'تک‌انتخابی — ۱۵ پاسخ معتبر',type:'doughnut',l:['توسط خود فرد','توسط مجموعه'],d:[13,2],n:'<b>۸۷٪</b> می‌خواهند خودشان مبلغ را تعیین کنند.'},
+{t:'۵. زمان ترجیحی پیام یادآوری',k:'تک‌انتخابی',type:'bar',l:['روز اول ماه','چند روز بعد از شروع ماه','دو سه روز مانده به شروع ماه'],d:[8,5,3],n:'روز اول ماه با <b>۵۰٪</b> مقام اول را دارد.'},
+{t:'۶. اثر آگاهی از نحوه هزینه‌کرد بر تمایل به مشارکت',k:'تک‌انتخابی',type:'doughnut',l:['زیاد','کم','تأثیری ندارد'],d:[8,4,4],n:'برای نیمی از افراد، شفافیت اثر <b>زیاد</b> دارد.'},
+{t:'۷. چه چیزی مشارکت مستمر را آسان‌تر می‌کند؟',k:'چندانتخابی',type:'bar',l:['یادآوری ماهانه','گزارش شفاف هزینه‌کرد','در شرایط فعلی امکان مشارکت مستمر ندارم','مشخص بودن مبلغ پیشنهادی','روش ساده‌تر پرداخت'],d:[7,5,5,2,2],n:'یادآوری (۴۴٪) و گزارش شفاف (۳۱٪) مؤثرترین‌اند؛ ۵ نفر (۳۱٪) فعلاً امکان مشارکت مستمر ندارند.'}
+];
+document.getElementById('k1').textContent=fa(16);
+document.getElementById('k2').textContent=fa(50)+'٪';
+document.getElementById('k3').textContent=fa(56)+'٪';
+document.getElementById('k4').textContent=fa(87)+'٪';
+const box=document.getElementById('charts');
+const font={family:'Vazirmatn, Tahoma'};
+Q.forEach((q,i)=>{
+ const c=document.createElement('div');c.className='card';
+ c.innerHTML=`<h3>${q.t}</h3><span class="tag">${q.k}</span><div class="ch"><canvas id="c${i}"></canvas></div><p class="note">${q.n}</p>`;
+ box.appendChild(c);
+ const pal=P();
+ const isD=q.type==='doughnut';
+ new Chart(document.getElementById('c'+i),{
+  type:isD?'doughnut':'bar',
+  data:{labels:q.l,datasets:[{data:q.d,backgroundColor:isD?pal:pal[0],borderWidth:0,borderRadius:isD?0:6}]},
+  options:{responsive:true,maintainAspectRatio:false,indexAxis:isD?undefined:'y',
+   plugins:{legend:{display:isD,position:'bottom',labels:{font,color:col('--ink'),boxWidth:12}},
+    tooltip:{rtl:true,bodyFont:font,titleFont:font,callbacks:{label:x=>' '+fa(x.parsed.y??x.parsed.x??x.parsed)+' نفر'}}},
+   scales:isD?{}:{x:{beginAtZero:true,ticks:{precision:0,callback:v=>fa(v),color:col('--mut'),font},grid:{color:col('--line')},reverse:true},
+    y:{position:'right',ticks:{color:col('--ink'),font,callback:function(v){const s=this.getLabelForValue(v);return s.length>26?[s.slice(0,s.lastIndexOf(' ',26)),s.slice(s.lastIndexOf(' ',26)+1)]:s}},grid:{display:false}}}}
+ });
+});
+const cms=['به نظر من روش فعلی خوبه و نقدی بهش ندارم. هرکس یه مبلغ حداقلی رو خودش تعیین کنه و به همون پایبند باشه؛ اگه یک ماه دستش بازتر بود بیشتر واریز کنه.',
+'روش جمع‌آوری حتماً نباید مالی باشه؛ می‌تونه خواستن کمک از هر فرد برای درخواست کمک از بقیه مردم باشه.',
+'بهتره برای مایحتاج دائمی مثل صوت و تصویر هر ماه اعلام بشه که برای این تجهیزات فلان مبلغ لازمه، و اطلاع‌رسانی در کانال‌های مختلف انجام بشه تا مؤثرتر باشه.',
+'پس از تفکر بیشتر و مشورت با دیگران، بعداً نظرم را اعلام می‌کنم.',
+'«یاعلی»'];
+document.getElementById('cm').innerHTML=cms.map(t=>`<div class="cm">${t}</div>`).join('');
+</script>
+</body>
+</html>
